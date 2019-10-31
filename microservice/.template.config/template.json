@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Lyudmil Latinov",
+    "classifications": [
+        "Common",
+        "Code"
+    ],
+    "identity": "dotnet.core.micro.service",
+    "name": ".NET Core 3.0 micro-service",
+    "shortName": "microservice",
+    "tags": {
+        "language": "C#",
+        "type": "item"
+    },
+    "guids": [
+        "9A19103F-16F7-4668-BE54-9A1E7A4F7556",
+        "CDC16DE6-84F9-4613-9A65-DE98AD6E6267",
+        "479C0443-B3F0-4D95-9E6F-0FD15BA1C924",
+        "6E429B37-AF4C-4C3E-AE4E-850723C321C5",
+        "B8592FDC-FEB3-4CD7-8DDD-B8A9F41C7946"
+    ],
+    "symbols": {
+        "ProjectName": {
+            "type": "parameter",
+            "replaces": "{ProjectName}",
+            "FileRename": "{ProjectName}",
+            "isRequired": true
+        }
+    }
+}
