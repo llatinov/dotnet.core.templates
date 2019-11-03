@@ -1,9 +1,9 @@
-using {ProjectName}.Controllers;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using PROJECT_NAME.Controllers;
 
-namespace {ProjectName}.Test.Controllers
+namespace PROJECT_NAME.Test.Controllers
 {
     [TestClass]
     public class VersionControllerTest

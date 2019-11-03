@@ -1,4 +1,4 @@
-namespace {ProjectName}
+namespace PROJECT_NAME
 {
     public class AppConfig
     {

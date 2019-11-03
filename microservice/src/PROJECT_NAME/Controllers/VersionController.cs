@@ -1,9 +1,9 @@
 using System.Net;
-using {ProjectName}.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using PROJECT_NAME.Exceptions;
 
-namespace {ProjectName}.Controllers
+namespace PROJECT_NAME.Controllers
 {
     [Route("api/[controller]")]
     public class VersionController : Controller

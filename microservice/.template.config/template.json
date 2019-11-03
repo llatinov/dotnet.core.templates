@@ -22,8 +22,8 @@
     "symbols": {
         "ProjectName": {
             "type": "parameter",
-            "replaces": "{ProjectName}",
-            "FileRename": "{ProjectName}",
+            "replaces": "PROJECT_NAME",
+            "FileRename": "PROJECT_NAME",
             "isRequired": true
         }
     }

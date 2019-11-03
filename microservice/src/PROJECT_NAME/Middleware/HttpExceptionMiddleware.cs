@@ -1,9 +1,9 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Features;
-using {ProjectName}.Exceptions;
+using PROJECT_NAME.Exceptions;
 
-namespace {ProjectName}.Middleware
+namespace PROJECT_NAME.Middleware
 {
     public class HttpExceptionMiddleware
     {

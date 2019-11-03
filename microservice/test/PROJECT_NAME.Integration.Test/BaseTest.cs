@@ -1,8 +1,8 @@
-using {ProjectName}.Integration.Test.Client;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using PROJECT_NAME.Integration.Test.Client;
 
-namespace {ProjectName}.Integration.Test
+namespace PROJECT_NAME.Integration.Test
 {
     public abstract class BaseTest
     {

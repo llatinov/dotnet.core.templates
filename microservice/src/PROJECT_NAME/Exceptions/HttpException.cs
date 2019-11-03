@@ -1,7 +1,7 @@
 using System;
 using System.Net;
 
-namespace {ProjectName}.Exceptions
+namespace PROJECT_NAME.Exceptions
 {
     public class HttpException : Exception
     {

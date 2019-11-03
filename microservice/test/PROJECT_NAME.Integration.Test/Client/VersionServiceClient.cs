@@ -3,7 +3,7 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 
-namespace {ProjectName}.Integration.Test.Client
+namespace PROJECT_NAME.Integration.Test.Client
 {
     public class VersionServiceClient
     {

@@ -1,6 +1,6 @@
 using System.Net;
 
-namespace {ProjectName}.Integration.Test.Client
+namespace PROJECT_NAME.Integration.Test.Client
 {
     public class ApiResponse<T>
     {

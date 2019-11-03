@@ -1,10 +1,10 @@
-using {ProjectName}.Middleware;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PROJECT_NAME.Middleware;
 
-namespace {ProjectName}
+namespace PROJECT_NAME
 {
     public class Startup
     {
@@ -33,7 +33,6 @@ namespace {ProjectName}
             {
                 endpoints.MapControllers();
             });
-
         }
     }
 }

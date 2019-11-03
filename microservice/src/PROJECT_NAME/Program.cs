@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace {ProjectName}
+namespace PROJECT_NAME
 {
     public class Program
     {

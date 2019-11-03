@@ -2,11 +2,11 @@
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29318.209
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{ProjectName}", "src\{ProjectName}\{ProjectName}.csproj", "{CDC16DE6-84F9-4613-9A65-DE98AD6E6267}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROJECT_NAME", "src\PROJECT_NAME\PROJECT_NAME.csproj", "{CDC16DE6-84F9-4613-9A65-DE98AD6E6267}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{ProjectName}.Integration.Test", "test\{ProjectName}.Integration.Test\{ProjectName}.Integration.Test.csproj", "{479C0443-B3F0-4D95-9E6F-0FD15BA1C924}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROJECT_NAME.Integration.Test", "test\PROJECT_NAME.Integration.Test\PROJECT_NAME.Integration.Test.csproj", "{479C0443-B3F0-4D95-9E6F-0FD15BA1C924}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "{ProjectName}.Test", "test\{ProjectName}.Test\{ProjectName}.Test.csproj", "{6E429B37-AF4C-4C3E-AE4E-850723C321C5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PROJECT_NAME.Test", "test\PROJECT_NAME.Test\PROJECT_NAME.Test.csproj", "{6E429B37-AF4C-4C3E-AE4E-850723C321C5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
