@@ -25,6 +25,30 @@
             "replaces": "PROJECT_NAME",
             "FileRename": "PROJECT_NAME",
             "isRequired": true
+        },
+        "AddHealthCheck": {
+            "type": "parameter",
+            "datatype": "bool",
+            "defaultValue": "false"
         }
-    }
+    },
+    "sources": [
+        {
+            "exclude": [
+                "**/[Bb]in/**",
+                "**/[Oo]bj/**",
+                ".template.config/**/*",
+                "**/*.filelist",
+                "**/*.user",
+                "**/*.lock.json",
+                ".vs/**"
+            ],
+            "modifiers": [
+                {
+                    "condition": "(!AddHealthCheck)",
+                    "exclude": "src/**/HealthChecks/**"
+                }
+            ]
+        }
+    ]
 }

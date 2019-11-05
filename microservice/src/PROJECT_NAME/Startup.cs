@@ -2,6 +2,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+//#if (AddHealthCheck)
+using PROJECT_NAME.HealthChecks;
+//#endif
 using PROJECT_NAME.Middleware;
 
 namespace PROJECT_NAME
@@ -23,6 +26,10 @@ namespace PROJECT_NAME
         {
             services.AddMvc();
             services.Configure<AppConfig>(Configuration);
+            //#if (AddHealthCheck)
+            services.AddHealthChecks()
+                .AddCheck<VersionHealthCheck>("Version Health Check");
+            //#endif
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -32,6 +39,9 @@ namespace PROJECT_NAME
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //#if (AddHealthCheck)
+                endpoints.MapHealthChecks();
+                //#endif
             });
         }
     }
