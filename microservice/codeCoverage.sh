@@ -1,3 +1,5 @@
+#!/bin/sh
+
 if [ ! -z $1 ]; then
   if [ $1 -lt 0 ] || [ $1 -gt 100 ]; then
     echo "Threshold should be between 0 and 100"

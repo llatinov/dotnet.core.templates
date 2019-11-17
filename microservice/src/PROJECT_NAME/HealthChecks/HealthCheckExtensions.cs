@@ -19,18 +19,18 @@ namespace PROJECT_NAME.HealthChecks
                 ResponseWriter = async (context, report) =>
                 {
                     var result = JsonConvert.SerializeObject(
-                        new
+                        new HealthResult
                         {
-                            status = report.Status.ToString(),
-                            duration = report.TotalDuration,
-                            info = report.Entries.Select(e => new
+                            Status = report.Status.ToString(),
+                            Duration = report.TotalDuration,
+                            Info = report.Entries.Select(e => new HealthInfo
                             {
-                                key = e.Key,
-                                description = e.Value.Description,
-                                duration = e.Value.Duration,
-                                value = Enum.GetName(typeof(HealthStatus), e.Value.Status),
-                                error = e.Value.Exception?.Message
-                            })
+                                Key = e.Key,
+                                Description = e.Value.Description,
+                                Duration = e.Value.Duration,
+                                Status = Enum.GetName(typeof(HealthStatus), e.Value.Status),
+                                Error = e.Value.Exception?.Message
+                            }).ToList()
                         }, Formatting.None,
                         new JsonSerializerSettings
                         {

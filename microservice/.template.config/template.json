@@ -26,7 +26,17 @@
             "FileRename": "PROJECT_NAME",
             "isRequired": true
         },
-        "AddHealthCheck": {
+        "AddHealthChecks": {
+            "type": "parameter",
+            "datatype": "bool",
+            "defaultValue": "false"
+        },
+        "AddSqsPublisher": {
+            "type": "parameter",
+            "datatype": "bool",
+            "defaultValue": "false"
+        },
+        "AddSqsConsumer": {
             "type": "parameter",
             "datatype": "bool",
             "defaultValue": "false"
@@ -45,8 +55,46 @@
             ],
             "modifiers": [
                 {
-                    "condition": "(!AddHealthCheck)",
-                    "exclude": "src/**/HealthChecks/**"
+                    "condition": "(!AddHealthChecks)",
+                    "exclude": [
+                        "src/**/HealthChecks/**",
+                        "test/**/Client/HealthCheckClient.cs",
+                        "test/**/Tests/HealthCheckTest.cs"
+                    ]
+                },
+                {
+                    "condition": "(AddHealthChecks && !(AddSqsPublisher || AddSqsConsumer))",
+                    "exclude": "src/**/HealthChecks/SqsHealthCheck.cs"
+                },
+                {
+                    "condition": "(!(AddSqsPublisher && AddSqsConsumer))",
+                    "exclude": [
+                        "src/**/Sqs/**",
+                        "src/**/Services/**",
+                        "src/**/Controllers/ConsumerController.cs",
+                        "src/**/Controllers/PublishController.cs",
+                        "test/**/Controllers/PublishControllerTest.cs",
+                        "test/**/Client/PublishClient.cs",
+                        "test/**/Tests/PublishTest.cs"
+                    ]
+                },
+                {
+                    "condition": "(AddSqsPublisher)",
+                    "include": [
+                        "src/**/Sqs/**",
+                        "src/**/Controllers/PublishController.cs",
+                        "test/**/Controllers/PublishControllerTest.cs",
+                        "test/**/Client/PublishClient.cs",
+                        "test/**/Tests/PublishTest.cs"
+                    ]
+                },
+                {
+                    "condition": "(AddSqsConsumer)",
+                    "include": [
+                        "src/**/Sqs/**",
+                        "src/**/Services/**",
+                        "src/**/Controllers/ConsumerController.cs"
+                    ]
                 }
             ]
         }

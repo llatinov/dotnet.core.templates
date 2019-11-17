@@ -2,7 +2,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace PROJECT_NAME.Integration.Test
+namespace PROJECT_NAME.Integration.Test.Tests
 {
     [TestClass]
     public class VersionTest : BaseTest
