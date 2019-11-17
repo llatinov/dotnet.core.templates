@@ -11,6 +11,7 @@ using PROJECT_NAME.HealthChecks;
 using PROJECT_NAME.Middleware;
 //#if (AddSqsConsumer)
 using PROJECT_NAME.Services;
+using PROJECT_NAME.Services.Processors;
 //#endif
 //#if (AddSqsPublisher || AddSqsConsumer)
 using PROJECT_NAME.Sqs;
@@ -46,7 +47,12 @@ namespace PROJECT_NAME
             services.AddSingleton<IAmazonSQS>(x => SqsClientFactory.CreateClient(_appConfig.AwsSettings));
             services.AddSingleton<ISqsClient, SqsClient>();
             //#endif
-            ////#if (AddHealthChecks)
+            //#if (AddSqsConsumer)
+            services.AddSingleton<ISqsConsumerService, SqsConsumerService>();
+            services.AddScoped<IMessageProcessor, ActorMessageProcessor>();
+            services.AddScoped<IMessageProcessor, MovieMessageProcessor>();
+            //#endif
+            //#if (AddHealthChecks)
             services.AddHealthChecks()
                 //#if (AddSqsPublisher || AddSqsConsumer)
                 .AddCheck<SqsHealthCheck>("SQS Health Check")

@@ -95,5 +95,10 @@ namespace PROJECT_NAME.Services
                 _logger.LogError(ex, $"Cannot process message [id: {message.MessageId}, receiptHandle: {message.ReceiptHandle}, body: {message.Body}] from queue {_sqsClient.GetQueueName()}");
             }
         }
+
+        public async Task ReprocessMessages()
+        {
+            await _sqsClient.RestoreFromDeadLetterQueue();
+        }
     }
 }

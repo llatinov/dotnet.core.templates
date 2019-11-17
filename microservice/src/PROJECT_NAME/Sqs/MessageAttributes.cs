@@ -1,7 +1,16 @@
-﻿namespace PROJECT_NAME.Sqs
+﻿using System.Collections.Generic;
+using System.Linq;
+using Amazon.SQS.Model;
+
+namespace PROJECT_NAME.Sqs
 {
-    public class MessageAttributes
+    public static class MessageAttributes
     {
         public const string MessageType = "MessageType";
+
+        public static string GetMessageType(this Dictionary<string, MessageAttributeValue> attributes)
+        {
+            return attributes.SingleOrDefault(x => x.Key == MessageType).Value?.StringValue;
+        }
     }
 }

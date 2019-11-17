@@ -10,5 +10,7 @@ namespace PROJECT_NAME.Services
         void StartConsuming();
 
         void StopConsuming();
+
+        Task ReprocessMessages();
     }
 }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -18,7 +19,6 @@ namespace PROJECT_NAME.Sqs
         private readonly IAmazonSQS _sqsClient;
         private readonly ILogger<SqsClient> _logger;
         private readonly ConcurrentDictionary<string, string> _queueUrlCache;
-
 
         public SqsClient(IOptions<AppConfig> awsConfig, IAmazonSQS sqsClient, ILogger<SqsClient> logger)
         {
@@ -109,9 +109,8 @@ namespace PROJECT_NAME.Sqs
             }
         }
 
-        public async Task<List<Message>> GetMessagesAsync(CancellationToken cancellationToken = default)
+        public async Task<List<Message>> GetMessagesAsync(string queueName, CancellationToken cancellationToken = default)
         {
-            var queueName = _awsConfig.QueueName;
             var queueUrl = await GetQueueUrl(queueName);
 
             try
@@ -143,18 +142,21 @@ namespace PROJECT_NAME.Sqs
             }
         }
 
-        public async Task PostMessageAsync<T>(T model)
+        public async Task<List<Message>> GetMessagesAsync(CancellationToken cancellationToken = default)
         {
-            var queueName = _awsConfig.QueueName;
+            return await GetMessagesAsync(_awsConfig.QueueName, cancellationToken);
+        }
+
+        public async Task PostMessageAsync(string queueName, string messageBody, string messageType)
+        {
             var queueUrl = await GetQueueUrl(queueName);
-            var messageType = model.GetType().Name;
 
             try
             {
                 var sendMessageRequest = new SendMessageRequest
                 {
                     QueueUrl = queueUrl,
-                    MessageBody = JsonConvert.SerializeObject(model),
+                    MessageBody = messageBody,
                     MessageAttributes = new Dictionary<string, MessageAttributeValue>
                     {
                         {
@@ -181,24 +183,66 @@ namespace PROJECT_NAME.Sqs
             }
         }
 
-        public async Task DeleteMessageAsync(string receiptHandle)
+        public async Task PostMessageAsync(string messageBody, string messageType)
         {
-            var queueName = _awsConfig.QueueName;
+            await PostMessageAsync(_awsConfig.QueueName, messageBody, messageType);
+        }
+
+        public async Task DeleteMessageAsync(string queueName, string receiptHandle)
+        {
             var queueUrl = await GetQueueUrl(queueName);
 
             try
             {
-                DeleteMessageResponse response = await _sqsClient.DeleteMessageAsync(queueUrl, receiptHandle);
+                var response = await _sqsClient.DeleteMessageAsync(queueUrl, receiptHandle);
 
                 if (response.HttpStatusCode != HttpStatusCode.OK)
                 {
-                    throw new AmazonSQSException(
-                        $"Failed to DeleteMessageAsync with for [{receiptHandle}] from queue '{queueName}'. Response: {response.HttpStatusCode}");
+                    throw new AmazonSQSException($"Failed to DeleteMessageAsync with for [{receiptHandle}] from queue '{queueName}'. Response: {response.HttpStatusCode}");
                 }
             }
             catch (Exception)
             {
                 _logger.LogError($"Failed to DeleteMessageAsync from queue {queueName}");
+                throw;
+            }
+        }
+
+        public async Task DeleteMessageAsync(string receiptHandle)
+        {
+            await DeleteMessageAsync(_awsConfig.QueueName, receiptHandle);
+        }
+
+        public async Task RestoreFromDeadLetterQueue(CancellationToken cancellationToken = default)
+        {
+            var deadLetterQueueName = _awsConfig.DeadLetterQueueName;
+
+            try
+            {
+                var token = new CancellationTokenSource();
+                while (!token.Token.IsCancellationRequested)
+                {
+                    var messages = await GetMessagesAsync(deadLetterQueueName, cancellationToken);
+                    if (!messages.Any())
+                    {
+                        token.Cancel();
+                        continue;
+                    }
+
+                    messages.ForEach(async message =>
+                    {
+                        var messageType = message.MessageAttributes.GetMessageType();
+                        if (messageType != null)
+                        {
+                            await PostMessageAsync(message.Body, messageType);
+                            await DeleteMessageAsync(deadLetterQueueName, message.ReceiptHandle);
+                        }
+                    });
+                }
+            }
+            catch (Exception)
+            {
+                _logger.LogError($"Failed to ReprocessMessages from queue {deadLetterQueueName}");
                 throw;
             }
         }
@@ -222,9 +266,7 @@ namespace PROJECT_NAME.Sqs
             }
             catch (QueueDoesNotExistException ex)
             {
-                throw new InvalidOperationException(
-                    $"Could not retrieve the URL for the queue '{queueName}' as it does not exist or you do not have access to it.",
-                    ex);
+                throw new InvalidOperationException($"Could not retrieve the URL for the queue '{queueName}' as it does not exist or you do not have access to it.", ex);
             }
         }
     }

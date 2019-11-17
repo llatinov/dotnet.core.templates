@@ -15,8 +15,10 @@ namespace PROJECT_NAME.Sqs
 
         Task<List<Message>> GetMessagesAsync(CancellationToken cancellationToken = default);
 
-        Task PostMessageAsync<T>(T model);
+        Task PostMessageAsync(string messageBody, string messageType);
 
         Task DeleteMessageAsync(string receiptHandle);
+
+        Task RestoreFromDeadLetterQueue(CancellationToken cancellationToken = default);
     }
 }

@@ -31,6 +31,14 @@ namespace PROJECT_NAME.Controllers
             return StatusCode((int)HttpStatusCode.OK);
         }
 
+        [HttpPost]
+        [Route("reprocess")]
+        public IActionResult Reprocess()
+        {
+            _sqsConsumerService.ReprocessMessages();
+            return StatusCode((int)HttpStatusCode.OK);
+        }
+
         [HttpGet]
         [Route("status")]
         public async Task<IActionResult> Status()

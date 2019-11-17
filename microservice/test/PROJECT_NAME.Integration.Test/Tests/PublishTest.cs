@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Amazon.SQS.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Newtonsoft.Json;
 using PROJECT_NAME.Sqs.Models;
 
 namespace PROJECT_NAME.Integration.Test.Tests
@@ -29,23 +30,25 @@ namespace PROJECT_NAME.Integration.Test.Tests
         [TestMethod]
         public async Task PublishMovie_SendSqsMessage()
         {
-            var movie = new Movie { Title = "Die hard" };
+            var movie = new Movie {Title = "Die hard"};
             var response = await PublishClient.PublishMovie(movie);
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
             SqsClientMock.Verify(x => x.PostMessageAsync(
-                It.Is<Movie>(y => y.Title == movie.Title)), Times.Once);
+                It.Is<string>(y => y == JsonConvert.SerializeObject(movie)),
+                It.Is<string>(y => y == "Movie")), Times.Once);
         }
 
         [TestMethod]
         public async Task PublishActor_SendSqsMessage()
         {
-            var actor = new Actor { FirstName = "Bruce", LastName = "Willis" };
+            var actor = new Actor {FirstName = "Bruce", LastName = "Willis"};
             var response = await PublishClient.PublishActor(actor);
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
             SqsClientMock.Verify(x => x.PostMessageAsync(
-                It.Is<Actor>(y => y.FirstName == actor.FirstName && y.LastName == actor.LastName)), Times.Once);
+                It.Is<string>(y => y == JsonConvert.SerializeObject(actor)),
+                It.Is<string>(y => y == "Actor")), Times.Once);
         }
     }
 }
