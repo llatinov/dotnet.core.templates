@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Newtonsoft.Json;
 //#if (AddHealthChecks)
 using PROJECT_NAME.HealthChecks;
 //#endif
@@ -41,7 +42,8 @@ namespace PROJECT_NAME
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc();
+            services.AddMvc()
+                .AddNewtonsoftJson(options => options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore);
             services.Configure<AppConfig>(Configuration);
             //#if (AddSqsPublisher || AddSqsConsumer)
             services.AddSingleton<IAmazonSQS>(x => SqsClientFactory.CreateClient(_appConfig.AwsSettings));

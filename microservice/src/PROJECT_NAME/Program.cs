@@ -10,10 +10,10 @@ namespace PROJECT_NAME
             var webHost = WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
                 //#if (AddSqsPublisher)
-                .UseUrls("http://*:5100", "https://*:5101")
+                .UseUrls("http://*:5100")
                 //#endif
                 //#if (AddSqsConsumer)
-                .UseUrls("http://*:5200", "https://*:5201")
+                .UseUrls("http://*:5200")
                 //#endif
                 .Build();
 

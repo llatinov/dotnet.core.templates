@@ -16,13 +16,13 @@ namespace PROJECT_NAME.Controllers
         }
 
         [HttpGet]
-        public string Version()
+        public IActionResult Version()
         {
-            return _config.Version;
+            return StatusCode((int)HttpStatusCode.OK, new { _config.Version });
         }
 
         [HttpGet("restricted")]
-        public string VersionNotFound()
+        public IActionResult VersionNotFound()
         {
             throw new HttpException(HttpStatusCode.Unauthorized);
         }
