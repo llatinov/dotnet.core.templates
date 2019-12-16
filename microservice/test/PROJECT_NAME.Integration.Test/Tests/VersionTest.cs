@@ -13,7 +13,7 @@ namespace PROJECT_NAME.Integration.Test.Tests
             var response = await VersionServiceClient.GetVersion();
 
             Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
-            Assert.AreEqual("1.0", response.Result);
+            Assert.AreEqual("1.0", response.Result.Version);
         }
 
         [TestMethod]

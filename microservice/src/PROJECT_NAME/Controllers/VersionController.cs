@@ -2,6 +2,7 @@ using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using PROJECT_NAME.Exceptions;
+using PROJECT_NAME.Models;
 
 namespace PROJECT_NAME.Controllers
 {
@@ -18,7 +19,8 @@ namespace PROJECT_NAME.Controllers
         [HttpGet]
         public IActionResult Version()
         {
-            return StatusCode((int)HttpStatusCode.OK, new { _config.Version });
+            var result = new VersionDto { Version = _config.Version };
+            return StatusCode((int)HttpStatusCode.OK, result);
         }
 
         [HttpGet("restricted")]

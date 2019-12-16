@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 using PROJECT_NAME.Controllers;
+using PROJECT_NAME.Models;
 
 namespace PROJECT_NAME.Test.Controllers
 {
@@ -27,8 +29,10 @@ namespace PROJECT_NAME.Test.Controllers
             _appConfig.Version = version;
 
             var result = _versionControllerUnderTest.Version();
+            var asObjectResult = (ObjectResult) result;
+            var asVersionDto = (VersionDto) asObjectResult.Value;
 
-            Assert.AreEqual(version, result);
+            Assert.AreEqual(version, asVersionDto.Version);
         }
     }
 }

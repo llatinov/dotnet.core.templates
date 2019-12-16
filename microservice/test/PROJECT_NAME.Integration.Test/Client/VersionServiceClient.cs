@@ -1,5 +1,6 @@
 using System.Net.Http;
 using System.Threading.Tasks;
+using PROJECT_NAME.Models;
 
 namespace PROJECT_NAME.Integration.Test.Client
 {
@@ -8,9 +9,9 @@ namespace PROJECT_NAME.Integration.Test.Client
         public VersionServiceClient(HttpClient httpClient)
             : base(httpClient) { }
 
-        public async Task<ApiResponse<string>> GetVersion()
+        public async Task<ApiResponse<VersionDto>> GetVersion()
         {
-            var version = await SendAsync<string>(HttpMethod.Get, "api/version");
+            var version = await SendAsync<VersionDto>(HttpMethod.Get, "api/version");
             return version;
         }
 
