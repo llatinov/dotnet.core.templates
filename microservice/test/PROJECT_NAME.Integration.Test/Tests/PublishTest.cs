@@ -30,7 +30,7 @@ namespace PROJECT_NAME.Integration.Test.Tests
         [TestMethod]
         public async Task PublishMovie_SendSqsMessage()
         {
-            var movie = new Movie {Title = "Die hard"};
+            var movie = new Movie { Title = "Die hard", Genre = MovieGenre.Action };
             var response = await PublishClient.PublishMovie(movie);
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);
@@ -42,7 +42,7 @@ namespace PROJECT_NAME.Integration.Test.Tests
         [TestMethod]
         public async Task PublishActor_SendSqsMessage()
         {
-            var actor = new Actor {FirstName = "Bruce", LastName = "Willis"};
+            var actor = new Actor { FirstName = "Bruce", LastName = "Willis" };
             var response = await PublishClient.PublishActor(actor);
 
             Assert.AreEqual(HttpStatusCode.Created, response.StatusCode);

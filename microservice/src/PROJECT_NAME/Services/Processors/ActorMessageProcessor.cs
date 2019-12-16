@@ -20,7 +20,7 @@ namespace PROJECT_NAME.Services.Processors
 
         public void Process(Message message)
         {
-            _logger.LogWarning($"ActorMessageProcessor invoked with: {message.Body}");
+            _logger.LogInformation($"ActorMessageProcessor invoked with: {message.Body}");
         }
     }
 }

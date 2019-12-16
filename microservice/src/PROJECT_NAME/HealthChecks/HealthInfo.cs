@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 namespace PROJECT_NAME.HealthChecks
 {
