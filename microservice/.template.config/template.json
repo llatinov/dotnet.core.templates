@@ -40,6 +40,11 @@
             "type": "parameter",
             "datatype": "bool",
             "defaultValue": "false"
+        },
+        "AddSerilog": {
+            "type": "parameter",
+            "datatype": "bool",
+            "defaultValue": "false"
         }
     },
     "sources": [

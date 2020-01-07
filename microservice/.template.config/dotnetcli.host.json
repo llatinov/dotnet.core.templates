@@ -16,6 +16,10 @@
     "AddSqsConsumer": {
       "longName": "AddSqsConsumer",
       "shortName": "ac"
+    },
+    "AddSerilog": {
+      "longName": "AddSerilog",
+      "shortName": "al"
     }
   }
 }

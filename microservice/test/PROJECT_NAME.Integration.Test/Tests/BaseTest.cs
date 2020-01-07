@@ -11,6 +11,9 @@ using PROJECT_NAME.Services;
 //#if (AddSqsPublisher || AddSqsConsumer)
 using PROJECT_NAME.Sqs;
 //#endif
+//#if (AddSerilog)
+using Serilog;
+//#endif
 
 namespace PROJECT_NAME.Integration.Test.Tests
 {
@@ -41,6 +44,9 @@ namespace PROJECT_NAME.Integration.Test.Tests
 
             var server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>()
+                //#if (AddSerilog)
+                .UseSerilog()
+                //#endif
                 .ConfigureTestServices(services =>
                 {
                     //#if (AddSqsPublisher || AddSqsConsumer)

@@ -2,7 +2,6 @@
 using Amazon.SQS;
 //#endif
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -17,6 +16,9 @@ using PROJECT_NAME.Services.Processors;
 //#endif
 //#if (AddSqsPublisher || AddSqsConsumer)
 using PROJECT_NAME.Sqs;
+//#endif
+//#if (AddSerilog)
+using Serilog;
 //#endif
 
 namespace PROJECT_NAME
@@ -66,8 +68,7 @@ namespace PROJECT_NAME
         }
 
         public void Configure(
-            IApplicationBuilder app,
-            IWebHostEnvironment env
+            IApplicationBuilder app
             //#if (AddSqsPublisher || AddSqsConsumer)
             , ISqsClient sqsClient
             //#endif
@@ -76,6 +77,9 @@ namespace PROJECT_NAME
             //#endif
             )
         {
+            //#if (AddSerilog)
+            app.UseSerilogRequestLogging();
+            //#endif
             app.UseMiddleware<HttpExceptionMiddleware>();
             app.UseRouting();
             app.UseEndpoints(endpoints =>
@@ -86,6 +90,7 @@ namespace PROJECT_NAME
                 //#endif
             });
             //#if (AddSqsPublisher || AddSqsConsumer)
+
             if (_appConfig.AwsSettings.AutomaticallyCreateQueue)
             {
                 sqsClient.CreateQueue().Wait();
