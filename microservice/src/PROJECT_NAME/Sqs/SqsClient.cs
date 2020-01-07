@@ -94,7 +94,7 @@ namespace PROJECT_NAME.Sqs
                 return new SqsStatus
                 {
                     IsHealthy = response.HttpStatusCode == HttpStatusCode.OK,
-                    ServiceUrl = _awsConfig.ServiceUrl,
+                    Region = _awsConfig.AwsRegion,
                     QueueName = queueName,
                     LongPollTimeSeconds = _awsConfig.LongPollTimeSeconds,
                     ApproximateNumberOfMessages = response.ApproximateNumberOfMessages,

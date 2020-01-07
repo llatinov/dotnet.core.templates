@@ -86,7 +86,10 @@ namespace PROJECT_NAME
                 //#endif
             });
             //#if (AddSqsPublisher || AddSqsConsumer)
-            sqsClient.CreateQueue().Wait();
+            if (_appConfig.AwsSettings.AutomaticallyCreateQueue)
+            {
+                sqsClient.CreateQueue().Wait();
+            }
             //#endif
             //#if (AddSqsConsumer)
             sqsConsumerService.StartConsuming();

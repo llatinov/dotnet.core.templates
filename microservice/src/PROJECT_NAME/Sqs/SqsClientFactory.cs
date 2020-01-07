@@ -1,4 +1,5 @@
-﻿using Amazon.SQS;
+﻿using Amazon;
+using Amazon.SQS;
 
 namespace PROJECT_NAME.Sqs
 {
@@ -6,7 +7,10 @@ namespace PROJECT_NAME.Sqs
     {
         public static AmazonSQSClient CreateClient(AppConfig.AwsConfig awsConfig)
         {
-            var sqsConfig = new AmazonSQSConfig { ServiceURL = awsConfig.ServiceUrl };
+            var sqsConfig = new AmazonSQSConfig
+            {
+                RegionEndpoint = RegionEndpoint.GetBySystemName(awsConfig.AwsRegion)
+            };
             var awsCredentials = new AwsCredentials(awsConfig);
             return new AmazonSQSClient(awsCredentials, sqsConfig);
         }

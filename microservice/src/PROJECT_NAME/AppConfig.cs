@@ -13,7 +13,10 @@ namespace PROJECT_NAME
             private const string FifoSuffix = ".fifo";
             private string _queueName;
 
-            public string ServiceUrl { get; set; }
+            public string AwsRegion { get; set; }
+            public string AwsAccessKey { get; set; }
+            public string AwsSecretKey { get; set; }
+            public bool AutomaticallyCreateQueue { get; set; }
 
             public string QueueName
             {
@@ -32,11 +35,10 @@ namespace PROJECT_NAME
 
             public bool IsFifo { get; set; }
             public int LongPollTimeSeconds { get; set; }
-            public string AwsAccessKey { get; set; }
-            public string AwsSecretKey { get; set; }
 
             public void UpdateFromEnvironment()
             {
+                AwsRegion = Environment.GetEnvironmentVariable("AwsRegion") ?? AwsAccessKey;
                 AwsAccessKey = Environment.GetEnvironmentVariable("AwsAccessKey") ?? AwsAccessKey;
                 AwsSecretKey = Environment.GetEnvironmentVariable("AwsSecretKey") ?? AwsSecretKey;
             }
