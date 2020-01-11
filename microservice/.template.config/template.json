@@ -78,6 +78,7 @@
                         "src/**/Services/**",
                         "src/**/Controllers/ConsumerController.cs",
                         "src/**/Controllers/PublishController.cs",
+                        "test/**/Controllers/ConsumerControllerTest.cs",
                         "test/**/Controllers/PublishControllerTest.cs",
                         "test/**/Client/PublishClient.cs",
                         "test/**/Tests/PublishTest.cs"
@@ -98,7 +99,8 @@
                     "include": [
                         "src/**/Sqs/**",
                         "src/**/Services/**",
-                        "src/**/Controllers/ConsumerController.cs"
+                        "src/**/Controllers/ConsumerController.cs",
+                        "test/**/Controllers/ConsumerControllerTest.cs"
                     ]
                 }
             ]
