@@ -12,7 +12,7 @@ namespace PROJECT_NAME.HealthChecks
 {
     public static class HealthCheckExtensions
     {
-        public static IEndpointConventionBuilder MapHealthChecks(this IEndpointRouteBuilder endpoints)
+        public static IEndpointConventionBuilder MapCustomHealthChecks(this IEndpointRouteBuilder endpoints, string serviceName)
         {
             return endpoints.MapHealthChecks("/health", new HealthCheckOptions
             {
@@ -21,6 +21,7 @@ namespace PROJECT_NAME.HealthChecks
                     var result = JsonConvert.SerializeObject(
                         new HealthResult
                         {
+                            Name = serviceName,
                             Status = report.Status.ToString(),
                             Duration = report.TotalDuration,
                             Info = report.Entries.Select(e => new HealthInfo

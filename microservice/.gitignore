@@ -7,4 +7,6 @@ pub/
 # MiniCover
 coverage-html/
 coverage-hits.txt
+coverage.hits
 coverage.json
+coverage.xml

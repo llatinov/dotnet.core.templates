@@ -86,7 +86,7 @@ namespace PROJECT_NAME
             {
                 endpoints.MapControllers();
                 //#if (AddHealthChecks)
-                endpoints.MapHealthChecks();
+                endpoints.MapCustomHealthChecks("PROJECT_NAME service");
                 //#endif
             });
             //#if (AddSqsPublisher || AddSqsConsumer)
