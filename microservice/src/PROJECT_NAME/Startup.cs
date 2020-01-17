@@ -93,7 +93,7 @@ namespace PROJECT_NAME
 
             if (_appConfig.AwsSettings.AutomaticallyCreateQueue)
             {
-                sqsClient.CreateQueue().Wait();
+                sqsClient.CreateQueueAsync().Wait();
             }
             //#endif
             //#if (AddSqsConsumer)

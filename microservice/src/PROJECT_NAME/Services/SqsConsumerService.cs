@@ -25,9 +25,9 @@ namespace PROJECT_NAME.Services
             _logger = logger;
         }
 
-        public async Task<SqsStatus> GetStatus()
+        public async Task<SqsStatus> GetStatusAsync()
         {
-            var status = await _sqsClient.GetQueueStatus();
+            var status = await _sqsClient.GetQueueStatusAsync();
             status.IsConsuming = IsConsuming();
 
             return status;
@@ -48,6 +48,11 @@ namespace PROJECT_NAME.Services
                 return;
 
             _tokenSource.Cancel();
+        }
+
+        public async Task ReprocessMessagesAsync()
+        {
+            await _sqsClient.RestoreFromDeadLetterQueueAsync();
         }
 
         private bool IsConsuming()
@@ -94,11 +99,6 @@ namespace PROJECT_NAME.Services
             {
                 _logger.LogError(ex, $"Cannot process message [id: {message.MessageId}, receiptHandle: {message.ReceiptHandle}, body: {message.Body}] from queue {_sqsClient.GetQueueName()}");
             }
-        }
-
-        public async Task ReprocessMessages()
-        {
-            await _sqsClient.RestoreFromDeadLetterQueue();
         }
     }
 }

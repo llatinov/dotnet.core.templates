@@ -48,20 +48,20 @@ namespace PROJECT_NAME.Test.Controllers
         }
 
         [TestMethod]
-        public void Reprocess_ReturnsCorrectResult_AndCallsCorrectMethod()
+        public async Task Reprocess_ReturnsCorrectResult_AndCallsCorrectMethod()
         {
-            var result = _consumerControllerUnderTest.Reprocess();
+            var result = await _consumerControllerUnderTest.Reprocess();
             var asObjectResult = (StatusCodeResult)result;
 
             Assert.AreEqual(200, asObjectResult.StatusCode);
-            _consumerServiceMock.Verify(x => x.ReprocessMessages());
+            _consumerServiceMock.Verify(x => x.ReprocessMessagesAsync());
         }
 
         [TestMethod]
         public async Task Status_ReturnsCorrectResult_AndCallsCorrectMethod()
         {
             var sqsStatus = new SqsStatus();
-            _consumerServiceMock.Setup(x => x.GetStatus())
+            _consumerServiceMock.Setup(x => x.GetStatusAsync())
                 .ReturnsAsync(sqsStatus);
 
             var result = await _consumerControllerUnderTest.Status();
@@ -70,7 +70,7 @@ namespace PROJECT_NAME.Test.Controllers
 
             Assert.AreEqual(200, asObjectResult.StatusCode);
             Assert.AreEqual(sqsStatus, asObjectValue);
-            _consumerServiceMock.Verify(x => x.GetStatus());
+            _consumerServiceMock.Verify(x => x.GetStatusAsync());
         }
     }
 }

@@ -33,9 +33,9 @@ namespace PROJECT_NAME.Controllers
 
         [HttpPost]
         [Route("reprocess")]
-        public IActionResult Reprocess()
+        public async Task<IActionResult> Reprocess()
         {
-            _sqsConsumerService.ReprocessMessages();
+            await _sqsConsumerService.ReprocessMessagesAsync();
             return StatusCode((int)HttpStatusCode.OK);
         }
 
@@ -43,7 +43,7 @@ namespace PROJECT_NAME.Controllers
         [Route("status")]
         public async Task<IActionResult> Status()
         {
-            var status = await _sqsConsumerService.GetStatus();
+            var status = await _sqsConsumerService.GetStatusAsync();
             return StatusCode((int)HttpStatusCode.OK, status);
         }
     }

@@ -15,7 +15,7 @@ namespace PROJECT_NAME.Integration.Test.Tests
         public async Task GetHealthReport_ReturnsHealthy()
         {
             //#if (AddSqsPublisher || AddSqsConsumer)
-            SqsClientMock.Setup(x => x.GetQueueStatus())
+            SqsClientMock.Setup(x => x.GetQueueStatusAsync())
                 .ReturnsAsync(new SqsStatus { IsHealthy = true });
 
             //#endif
@@ -29,7 +29,7 @@ namespace PROJECT_NAME.Integration.Test.Tests
         [TestMethod]
         public async Task GetHealthReport_ReturnsUnhealthy()
         {
-            SqsClientMock.Setup(x => x.GetQueueStatus())
+            SqsClientMock.Setup(x => x.GetQueueStatusAsync())
                 .ReturnsAsync(new SqsStatus { IsHealthy = false });
 
             var response = await HealthCheckClient.GetHealth();

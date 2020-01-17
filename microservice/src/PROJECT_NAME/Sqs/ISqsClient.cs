@@ -9,9 +9,9 @@ namespace PROJECT_NAME.Sqs
     {
         string GetQueueName();
 
-        Task CreateQueue();
+        Task CreateQueueAsync();
 
-        Task<SqsStatus> GetQueueStatus();
+        Task<SqsStatus> GetQueueStatusAsync();
 
         Task<List<Message>> GetMessagesAsync(CancellationToken cancellationToken = default);
 
@@ -19,6 +19,6 @@ namespace PROJECT_NAME.Sqs
 
         Task DeleteMessageAsync(string receiptHandle);
 
-        Task RestoreFromDeadLetterQueue(CancellationToken cancellationToken = default);
+        Task RestoreFromDeadLetterQueueAsync(CancellationToken cancellationToken = default);
     }
 }

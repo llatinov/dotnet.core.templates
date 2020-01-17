@@ -33,7 +33,7 @@ namespace PROJECT_NAME.Sqs
             return _awsConfig.QueueName;
         }
 
-        public async Task CreateQueue()
+        public async Task CreateQueueAsync()
         {
             const string arnAttribute = "QueueArn";
 
@@ -81,10 +81,10 @@ namespace PROJECT_NAME.Sqs
             }
         }
 
-        public async Task<SqsStatus> GetQueueStatus()
+        public async Task<SqsStatus> GetQueueStatusAsync()
         {
             var queueName = _awsConfig.QueueName;
-            var queueUrl = await GetQueueUrl(queueName);
+            var queueUrl = await GetQueueUrlAsync(queueName);
 
             try
             {
@@ -111,7 +111,7 @@ namespace PROJECT_NAME.Sqs
 
         public async Task<List<Message>> GetMessagesAsync(string queueName, CancellationToken cancellationToken = default)
         {
-            var queueUrl = await GetQueueUrl(queueName);
+            var queueUrl = await GetQueueUrlAsync(queueName);
 
             try
             {
@@ -149,7 +149,7 @@ namespace PROJECT_NAME.Sqs
 
         public async Task PostMessageAsync(string queueName, string messageBody, string messageType)
         {
-            var queueUrl = await GetQueueUrl(queueName);
+            var queueUrl = await GetQueueUrlAsync(queueName);
 
             try
             {
@@ -190,7 +190,7 @@ namespace PROJECT_NAME.Sqs
 
         public async Task DeleteMessageAsync(string queueName, string receiptHandle)
         {
-            var queueUrl = await GetQueueUrl(queueName);
+            var queueUrl = await GetQueueUrlAsync(queueName);
 
             try
             {
@@ -213,7 +213,7 @@ namespace PROJECT_NAME.Sqs
             await DeleteMessageAsync(_awsConfig.QueueName, receiptHandle);
         }
 
-        public async Task RestoreFromDeadLetterQueue(CancellationToken cancellationToken = default)
+        public async Task RestoreFromDeadLetterQueueAsync(CancellationToken cancellationToken = default)
         {
             var deadLetterQueueName = _awsConfig.DeadLetterQueueName;
 
@@ -247,7 +247,7 @@ namespace PROJECT_NAME.Sqs
             }
         }
 
-        private async Task<string> GetQueueUrl(string queueName)
+        private async Task<string> GetQueueUrlAsync(string queueName)
         {
             if (string.IsNullOrEmpty(queueName))
             {

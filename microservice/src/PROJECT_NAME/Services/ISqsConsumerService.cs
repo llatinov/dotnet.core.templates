@@ -5,12 +5,12 @@ namespace PROJECT_NAME.Services
 {
     public interface ISqsConsumerService
     {
-        Task<SqsStatus> GetStatus();
+        Task<SqsStatus> GetStatusAsync();
 
         void StartConsuming();
 
         void StopConsuming();
 
-        Task ReprocessMessages();
+        Task ReprocessMessagesAsync();
     }
 }
