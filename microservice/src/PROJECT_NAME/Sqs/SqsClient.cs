@@ -120,7 +120,7 @@ namespace PROJECT_NAME.Sqs
                     QueueUrl = queueUrl,
                     WaitTimeSeconds = _awsConfig.LongPollTimeSeconds,
                     AttributeNames = new List<string> { "ApproximateReceiveCount" },
-                    MessageAttributeNames = new List<string> { "*" }
+                    MessageAttributeNames = new List<string> { ".*" }
                 }, cancellationToken);
 
                 if (response.HttpStatusCode != HttpStatusCode.OK)
